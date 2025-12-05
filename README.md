@@ -32,7 +32,7 @@ More robust scraping and larger dataset
 
 💻 Tech Stack
 
-Python, Pandas, NumPy, Scikit-Learn, BeautifulSoup, Power BI
+Python, Pandas, NumPy, Scikit-Learn, API Scrapping, Power BI
 
 This repo will be updated continuously as the project grows.
 Stay tuned! 🚀
