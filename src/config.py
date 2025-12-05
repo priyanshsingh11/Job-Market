@@ -1,0 +1,17 @@
+JOB_FIELDS = [
+    "job_id",
+    "title",
+    "company",
+    "location",
+    "source",
+    "posted_date",
+    "employment_type",
+    "experience_level",
+    "salary_min",
+    "salary_max",
+    "salary_currency",
+    "skills_raw",
+    "description",
+    "url",
+    "scraped_at",
+]
