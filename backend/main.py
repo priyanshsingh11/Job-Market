@@ -12,11 +12,24 @@ from pathlib import Path
 # =========================
 
 # this file: .../Job Market/backend/main.py
-BASE_DIR = Path(__file__).resolve().parent
-MODEL_DIR = BASE_DIR.parent / "model" / "models"
+# this file: .../Job Market/backend/main.py
+from pathlib import Path
 
-MODEL_PATH = MODEL_DIR / "salary_model.cbm"
-META_PATH = MODEL_DIR / "model_meta.joblib"
+# =========================
+# Paths
+# =========================
+
+BASE_DIR = Path(__file__).resolve().parent      # Job Market/backend
+ROOT_DIR = BASE_DIR.parent                      # Job Market
+
+MODEL_PATH = ROOT_DIR / "model" / "models" / "salary_model.cbm"
+META_PATH  = ROOT_DIR / "model" / "models" / "model_meta.joblib"
+
+print("MODEL PATH:", MODEL_PATH, "EXISTS?", MODEL_PATH.exists())
+print("META PATH:", META_PATH, "EXISTS?", META_PATH.exists())
+
+
+
 
 # =========================
 # Load model + metadata
@@ -29,14 +42,10 @@ meta = joblib.load(str(META_PATH))
 features_better = meta["features"]          # same key you saved
 seniority_map = meta["seniority_map"]
 
-# =========================
-# Paste your skill_map + assign_skills
-# =========================
-# ⚠️ VERY IMPORTANT:
-# Copy the SAME skill_map and assign_skills() you used
-# in your training notebook, and paste them here.
 
-# Example placeholder (REPLACE with your full version):
+# =========================
+# Skills mapping
+# =========================
 
 skill_map = {
     "data analyst": ["python", "sql", "excel", "tableau", "power bi", "statistics", "data cleaning", "eda", "postgresql", "mysql"],
@@ -92,9 +101,11 @@ def assign_skills(role: str) -> str:
 def has(pattern: str, text: str) -> int:
     return int(bool(re.search(pattern, text.lower())))
 
+
 tier1 = ["bengaluru", "bangalore", "hyderabad", "mumbai",
          "pune", "gurugram", "delhi", "noida", "chennai"]
 tier2 = ["jaipur", "indore", "ahmedabad", "lucknow", "bhopal"]
+
 
 def get_city_tier(city: str) -> int:
     c = str(city).lower()
@@ -120,11 +131,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class PredictRequest(BaseModel):
     employment_type: str
     city: str
     seniority: str
     role: str
+
 
 class PredictResponse(BaseModel):
     predicted_salary: float
