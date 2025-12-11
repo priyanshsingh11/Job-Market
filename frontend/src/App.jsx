@@ -1,9 +1,64 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000"; // change if backend is elsewhere
+const API_BASE_URL = "http://localhost:8000";
+
+// Role dropdown values (aligned with your skill_map)
+const ROLE_OPTIONS = [
+  "Data Analyst",
+  "Business Analyst",
+  "Product Analyst",
+  "Operations Analyst",
+  "Marketing Analyst",
+  "Finance Analyst",
+  "Risk Analyst",
+  "Reporting Analyst",
+  "BI Analyst",
+  "Analytics Engineer",
+  "Data Scientist",
+  "Statistician",
+  "Mathematician",
+  "ML Engineer",
+  "AI Engineer",
+  "Deep Learning Engineer",
+  "Computer Vision Engineer",
+  "NLP Engineer",
+  "Data Engineer",
+  "Data Architect",
+  "Cloud Architect",
+  "Solution Architect",
+  "Analytics Architect",
+  "Python Developer",
+  "Software Engineer",
+  "Data Analyst Trainee",
+  "Intern",
+];
+
+// City dropdown values (based on your tier logic)
+const CITY_OPTIONS = [
+  "Bengaluru",
+  "Hyderabad",
+  "Mumbai",
+  "Pune",
+  "Gurugram",
+  "Delhi",
+  "Noida",
+  "Chennai",
+  "Jaipur",
+  "Indore",
+  "Ahmedabad",
+  "Lucknow",
+  "Bhopal",
+  "Kolkata",
+  "Kochi",
+  "Surat",
+  "Chandigarh",
+];
 
 function App() {
+  // control whether main app is open or not
+  const [started, setStarted] = useState(false);
+
   const [form, setForm] = useState({
     employment_type: "full-time",
     city: "Bengaluru",
@@ -51,29 +106,68 @@ function App() {
 
   const formatSalary = (salary) => {
     if (salary == null) return "-";
-    // assuming your model predicts in LPA (like 3.0, 7.5 etc.)
     return `₹ ${salary.toFixed(1)} LPA`;
   };
 
+  const skillChips =
+    result?.skills_required
+      ?.split(",")
+      .map((s) => s.trim())
+      .filter(Boolean) || [];
+
+  /* ===========================
+   * PHASE 1 – START SCREEN
+   * =========================== */
+  if (!started) {
+    return (
+      <div className="start-screen">
+        <div className="start-orb start-orb-1" />
+        <div className="start-orb start-orb-2" />
+
+        <div className="start-card">
+          <div className="start-chip">Job Market</div>
+          <h1 className="start-title">Play with salaries, not guesses.</h1>
+          <p className="start-sub">
+            Launch your ML-powered salary &amp; skills explorer. See how role,
+            city and seniority change your market value.
+          </p>
+
+          <button className="start-button" onClick={() => setStarted(true)}>
+            Start the App
+          </button>
+
+        
+        </div>
+      </div>
+    );
+  }
+
+  /* ===========================
+   * PHASE 2 – MAIN APP
+   * =========================== */
   return (
     <div className="app-root">
       <div className="app-container">
+        {/* HEADER */}
         <header className="header">
-          <h1>Job Market – Salary & Skills Predictor</h1>
-          <p>
-            Enter basic job details and get an estimated salary range plus core
-            skills you should have.
-          </p>
+          <h1>Job Market Intelligence</h1>
+          
         </header>
 
+        {/* MAIN GRID */}
         <main className="main-content">
-          {/* FORM CARD */}
-          <section className="card form-card">
-            <h2>Job Details</h2>
+          {/* LEFT: FORM CARD */}
+          <section className="card">
+            <h2>Describe the role</h2>
+            <p className="hint">
+              Fill in the basic job details and we&apos;ll estimate the salary
+              and surface the core skills your model expects.
+            </p>
+
             <form onSubmit={handleSubmit} className="form-grid">
-              {/* Employment Type */}
+              {/* Employment type */}
               <div className="form-group">
-                <label htmlFor="employment_type">Employment Type</label>
+                <label htmlFor="employment_type">Employment type</label>
                 <select
                   id="employment_type"
                   name="employment_type"
@@ -87,23 +181,30 @@ function App() {
                   <option value="internship">Internship</option>
                   <option value="freelance">Freelance</option>
                 </select>
+                <div className="hint">
+                  Used exactly as your model saw during training.
+                </div>
               </div>
 
               {/* City */}
               <div className="form-group">
                 <label htmlFor="city">City</label>
-                <input
+                <select
                   id="city"
                   name="city"
-                  type="text"
-                  placeholder="e.g. Bengaluru"
                   value={form.city}
                   onChange={handleChange}
                   required
-                />
-                <small className="hint">
-                  Used for city tier: Bengaluru, Hyderabad, Mumbai, Jaipur, etc.
-                </small>
+                >
+                  {CITY_OPTIONS.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+                <div className="hint">
+                  Impacts the city tier feature (Tier-1, Tier-2, Tier-3).
+                </div>
               </div>
 
               {/* Seniority */}
@@ -126,71 +227,89 @@ function App() {
 
               {/* Role */}
               <div className="form-group full-width">
-                <label htmlFor="role">Role Title</label>
-                <input
+                <label htmlFor="role">Role title</label>
+                <select
                   id="role"
                   name="role"
-                  type="text"
-                  placeholder="e.g. Data Analyst, Analytics Engineer, ML Engineer"
                   value={form.role}
                   onChange={handleChange}
                   required
-                />
-                <small className="hint">
-                  Your backend uses this to infer skills (via <code>skill_map</code>).
-                </small>
+                >
+                  {ROLE_OPTIONS.map((role) => (
+                    <option key={role} value={role}>
+                      {role}
+                    </option>
+                  ))}
+                </select>
+                <div className="hint">
+                  Parsed against your <code>skill_map</code> to infer skills.
+                </div>
               </div>
 
+              {/* Button row */}
               <div className="form-actions">
                 <button type="submit" disabled={loading}>
-                  {loading ? "Predicting..." : "Predict Salary & Skills"}
+                  {loading ? "Crunching numbers…" : "Predict salary & skills"}
                 </button>
               </div>
             </form>
           </section>
 
-          {/* RESULT CARD */}
+          {/* RIGHT: RESULT CARD */}
           <section className="card result-card">
-            <h2>Prediction Result</h2>
+            <h2>Model prediction</h2>
+            <p className="hint">
+              See how the model values this role in the chosen city and what
+              tech stack it expects.
+            </p>
 
             {error && <div className="alert alert-error">{error}</div>}
 
-            {!error && !result && (
-              <p className="placeholder">
-                Fill the form and click <strong>Predict</strong> to see the
-                estimated salary and key skills.
-              </p>
+            {!result && !error && (
+              <div className="placeholder">
+                No prediction yet. Configure the role on the left and hit{" "}
+                <strong>Predict</strong>.
+              </div>
             )}
 
             {result && (
               <div className="result-content">
                 <div className="result-salary">
-                  <span className="label">Predicted Salary</span>
-                  <span className="value">
+                  <div className="label">Estimated compensation</div>
+                  <div className="value">
                     {formatSalary(result.predicted_salary)}
-                  </span>
+                  </div>
                 </div>
 
                 <div className="result-skills">
-                  <span className="label">Core Skills Required</span>
+                  <span className="label">Core skills</span>
                   <ul>
-                    {result.skills_required
-                      .split(",")
-                      .map((s) => s.trim())
-                      .filter(Boolean)
-                      .map((skill) => (
-                        <li key={skill}>{skill}</li>
-                      ))}
+                    {skillChips.map((skill) => (
+                      <li key={skill}>{skill}</li>
+                    ))}
                   </ul>
+                </div>
+
+                <div className="meta-row">
+                  <div className="meta-pill">
+                    <span className="label">Role</span>
+                    <span className="value">{form.role}</span>
+                  </div>
+                  <div className="meta-pill">
+                    <span className="label">City</span>
+                    <span className="value">{form.city}</span>
+                  </div>
+                  <div className="meta-pill">
+                    <span className="label">Seniority</span>
+                    <span className="value">{form.seniority}</span>
+                  </div>
                 </div>
               </div>
             )}
           </section>
         </main>
 
-        <footer className="footer">
-          <span>Built with FastAPI + CatBoost + React</span>
-        </footer>
+    
       </div>
     </div>
   );
