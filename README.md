@@ -6,9 +6,9 @@
 
 ## Status
 
-**Backend & data work ready / in progress. Frontend UI not yet implemented.**
+**Backend, frontend UI, and model pipeline are implemented. Only deeper data analysis/visualization work is pending.**
 
-This repository currently contains scraping, data cleaning, notebooks, and model experiments. The backend provides APIs (development) to serve predictions and processed data. A frontend (React/Vue) will be added in a later iteration — see **Roadmap**.
+This repository now includes scraping, preprocessing, ML model inference API, and a working frontend connected to the backend. Advanced analytics dashboards are still in progress.
 
 ---
 
@@ -134,16 +134,14 @@ Please check the backend code for exact routes and payload shapes.
 
 ## Roadmap / TODOs
 
-* [x] Web scraping & initial dataset collection
-* [x] Data cleaning & extraction utilities
-* [x] Notebooks for EDA and baseline models
-* [x] Backend API to serve predictions and processed data
-* [ ] Frontend UI (React) — **not implemented yet**
-* [ ] Add CI (tests), linting, and formatters
-* [ ] Improve model (feature engineering, ensembling)
-* [ ] Deploy API and dashboard
-
-If you want to help with the frontend, open an issue / PR and I can share design notes and API contracts.
+* [x] Web scraping & dataset creation
+* [x] Data cleaning & preprocessing utilities
+* [x] ML model training (baseline salary prediction)
+* [x] Backend API for job predictions + data access
+* [x] Frontend UI (React) integrated with backend
+* [ ] Advanced analytics + insights (Power BI / frontend visualizations)
+* [ ] Improve model accuracy and feature engineering
+* [ ] Deployment to production
 
 ---
 
