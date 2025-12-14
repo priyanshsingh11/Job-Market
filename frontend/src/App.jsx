@@ -4,7 +4,7 @@ import StartScreen from "./components/screen";
 
 const API_BASE_URL = "http://localhost:8000";
 const POWERBI_URL =
-  "https://app.powerbi.com/links/9HRBeSy2Nq?ctid=cb1013ae-fb33-4405-8464-8d4ebfd3679d&pbi_source=linkShare&bookmarkGuid=73baaad8-e6a0-4dc4-98f1-18d007c093c6";
+  "https://app.powerbi.com/links/R8MV_DxPfo?ctid=cb1013ae-fb33-4405-8464-8d4ebfd3679d&pbi_source=linkShare";
 
 // Role & City options (kept from your original)
 const ROLE_OPTIONS = [
