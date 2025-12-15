@@ -60,17 +60,18 @@ The modern job market is highly dynamic and fragmented across multiple platforms
                └─────────────────────────────┘
 
 ## 📂 Project Structure
-
+```text
 Job-Market/
 │
-├── data/ # Raw and cleaned job datasets
-├── scraping/ # Job scraping scripts
-├── notebooks/ # EDA and experimentation notebooks
-├── models/ # Trained ML models
-├── analysis/ # Feature engineering and insights
-├── outputs/ # Processed datasets and results
-├── README.md # Project documentation
-└── requirements.txt # Project dependencies
+├── data/                 # Raw and cleaned job datasets
+├── scraping/             # Job scraping scripts
+├── notebooks/            # EDA and experimentation notebooks
+├── models/               # Trained ML models
+├── analysis/             # Feature engineering and insights
+├── outputs/              # Processed datasets and results
+├── README.md             # Project documentation
+└── requirements.txt      # Project dependencies
+
 
 
 ## 🔧 Tech Stack
