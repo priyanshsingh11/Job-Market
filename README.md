@@ -74,6 +74,8 @@ Job-Market/
 
 
 
+```
+
 ## 🔧 Tech Stack
 
 **Programming & Tools:** Python, Git, GitHub, Jupyter Notebook, VS Code  
