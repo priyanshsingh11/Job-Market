@@ -1,182 +1,114 @@
-# Job Market Intelligence
+# 📊 Job-Market: End-to-End Job Market Intelligence Platform
+
+Job-Market is an end-to-end data science and machine learning project focused on scraping, analyzing, and modeling real-world job market data. The objective of this project is to understand hiring trends, in-demand skills, and salary patterns, enabling data-driven career and business decisions for students, job seekers, and analysts.
+
+## 🚀 Project Motivation
+
+The modern job market is highly dynamic and fragmented across multiple platforms. Job postings are often unstructured, inconsistent, and difficult to analyze at scale. This project aims to automate job data collection, clean and structure raw data, extract meaningful insights, and build machine learning models that reflect real hiring trends.
+
+## 🧠 Key Features
+
+- Automated job data scraping from online job platforms  
+- Data cleaning and preprocessing using Pandas and NumPy  
+- Exploratory Data Analysis (EDA) to uncover hiring trends  
+- Feature engineering for skills, salary, and experience  
+- Machine learning models for job market insights  
+- Visualization-ready datasets  
+- Scalable architecture for APIs and dashboards  
+
+## 🏗️ System Architecture
+
+                             ┌──────────────────┐
+                             │   Data Sources    │
+                             │ (Web Job Boards)  │
+                             └─────────┬─────────┘
+                                       │
+                                       ▼
+                            ┌─────────────────────┐
+                            │     Scraper Layer    │
+                            │ (API / Web Scraping) │
+                            └─────────┬───────────┘
+                                       │ Raw Job Listings
+                                       ▼
+                         ┌──────────────────────────┐
+                         │    Data Storage (CSV)     │
+                         └─────────┬────────────────┘
+                                       │
+                    ┌──────────────────┴──────────────────┐
+                    │                                     │
+                    ▼                                     ▼
+          ┌──────────────────┐               ┌────────────────────────┐
+          │ Data Cleaning &  │               │   Feature Engineering  │
+          │   Preprocessing   │               │ (Skills, Salary, Exp) │
+          └─────────┬────────┘                └─────────┬──────────────┘
+                    │                                   │
+                    ▼                                   ▼
+             ┌───────────────────────────────┐  ┌────────────────────────┐
+             │   Machine Learning Models      │  │   Exploratory Analysis │
+             │ (Salary / Skill Insights)      │  │   & Visualization      │
+             └────────────┬──────────────────┘  └────────────────────────┘
+                          │
+                          ▼
+               ┌─────────────────────────────┐
+               │ Model Evaluation & Tuning    │
+               └────────────┬────────────────┘
+                            │
+                            ▼
+               ┌─────────────────────────────┐
+               │ Future: API & Dashboards     │
+               │ (Power BI / Web Interface)   │
+               └─────────────────────────────┘
+
+## 📂 Project Structure
+
+Job-Market/
+│
+├── data/ # Raw and cleaned job datasets
+├── scraping/ # Job scraping scripts
+├── notebooks/ # EDA and experimentation notebooks
+├── models/ # Trained ML models
+├── analysis/ # Feature engineering and insights
+├── outputs/ # Processed datasets and results
+├── README.md # Project documentation
+└── requirements.txt # Project dependencies
+
+
+## 🔧 Tech Stack
+
+**Programming & Tools:** Python, Git, GitHub, Jupyter Notebook, VS Code  
+**Data Analytics:** Pandas, NumPy, Matplotlib, Seaborn  
+**Machine Learning:** Scikit-learn  
+**Visualization & Reporting:** Power BI (planned)
+
+## 📊 Machine Learning Workflow
+
+1. Data collection through automated web scraping  
+2. Data cleaning including missing value handling and normalization  
+3. Feature engineering for skills, salary, experience, and roles  
+4. Model training using machine learning algorithms  
+5. Model evaluation and performance tuning  
+
+## 📈 Use Cases
+
+- Students exploring career paths and skill requirements  
+- Job seekers identifying high-demand skills  
+- Analysts studying hiring and salary trends  
+- Recruiters understanding market demand  
+
+## 🚧 Future Enhancements
+
+- REST API for real-time predictions  
+- Interactive dashboards for market insights  
+- Skill recommendation system  
+- Cloud deployment and scalability improvements  
 
-> Work in progress — project to collect job listings, clean & analyze the data, and build ML models to predict salaries and recommend skills.
+## 🧑‍💻 Author
 
----
+**Priyansh Singh**  
+Machine Learning & Data Science Enthusiast  
 
-## Status
+GitHub: https://github.com/priyanshsingh11  
 
-**Backend, frontend UI, and model pipeline are implemented. Only deeper data analysis/visualization work is pending.**
+## ⭐ Support
 
-This repository now includes scraping, preprocessing, ML model inference API, and a working frontend connected to the backend. Advanced analytics dashboards are still in progress.
-
----
-
-## Quick overview
-
-**What this does**
-
-* Scrapes job boards to collect job title, company, location, skills, posted date, salary (when available), and full job description.
-* Cleans and normalizes the dataset: salary parsing, missing-value handling, skill extraction, date normalization.
-* Runs exploratory analysis and notebooks to find trends in skills and compensation.
-* Trains baseline ML models that predict salaries and highlight important skills.
-* Exposes APIs to query processed data and model predictions (backend).
-
-**Tech stack**
-
-* Python (Pandas, NumPy)
-* Scikit-Learn (baseline ML)
-* Jupyter Notebooks (analysis & experiments)
-* Backend (Python API) — development-ready
-* Power BI (optional dashboards)
-
----
-
-## Repository structure
-
-```
-.venv/              # optional - local virtual environment (ignored)
-analysis/           # analysis scripts and reports
-backend/            # backend API (development)
-data/               # raw & processed datasets (not all included)
-model/              # saved models, training code
-notebook/           # jupyter notebooks for EDA and experiments
-src/                # shared utilities and modules
-requirements.txt
-README.md
-```
-
----
-
-## Getting started (developer)
-
-> These are generic instructions. If the backend has a README or an entrypoint file (e.g. `backend/app.py` or `backend/main.py`), prefer following that file.
-
-1. Clone the repo
-
-```bash
-git clone https://github.com/priyanshsingh11/Job-Market.git
-cd Job-Market
-```
-
-2. Create & activate a virtual environment
-
-* macOS / Linux
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-* Windows (PowerShell)
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-4. Running the backend (development)
-
-> The exact entrypoint may vary. Common commands that should work if the backend exposes a FastAPI/ASGI app:
-
-```bash
-# if the app object is in backend.main:app
-uvicorn backend.main:app --reload
-
-# or if the entrypoint file is backend/app.py with `app` exposed
-uvicorn backend.app:app --reload
-```
-
-If you encounter an `ImportError` or `ModuleNotFoundError`, open the `backend` folder and look for the file that creates the `app` or the CLI instructions.
-
-5. Jupyter notebooks
-
-```bash
-jupyter lab  # or jupyter notebook
-```
-
-Open the notebooks in `notebook/` for EDA and experiments.
-
----
-
-## Data
-
-* `data/` currently holds RAW and processed CSVs used for training and analysis. Some datasets may be large and excluded from the repo — check `.gitignore` and the `data/` README (if available).
-* When re-running experiments, ensure consistent preprocessing (documented inside notebooks and `src/` utilities).
-
----
-
-## Models
-
-* Trained models and pickles (if any) live under `model/`.
-* Model training notebooks and scripts are in `notebook/` and `src/` respectively.
-* Use the same preprocessing pipeline during inference as you used in training.
-
----
-
-## API (currently development)
-
-* The backend exposes endpoints to fetch processed data and to get model predictions.
-* Example (replace with the real endpoints after checking `backend` code):
-
-  * `GET /jobs/sample` — sample job listings
-  * `POST /predict/salary` — salary prediction for a job description
-
-Please check the backend code for exact routes and payload shapes.
-
----
-
-## Roadmap / TODOs
-
-* [x] Web scraping & dataset creation
-* [x] Data cleaning & preprocessing utilities
-* [x] ML model training (baseline salary prediction)
-* [x] Backend API for job predictions + data access
-* [x] Frontend UI (React) integrated with backend
-* [ ] Advanced analytics + insights (Power BI / frontend visualizations)
-* [ ] Improve model accuracy and feature engineering
-* [ ] Deployment to production
-
----
-
-## Contributing
-
-1. Fork the repo
-2. Create a branch for your feature: `git checkout -b feat/your-feature`
-3. Commit changes and open a PR describing the work
-
-Please include tests for important utilities and document any new endpoints or data fields you introduce.
-
----
-
-## Notes from author
-
-* Frontend is intentionally not present yet — this README clarifies the project's current state and the steps required to run backend and experiments locally.
-* If you plan to add the frontend, I recommend using the existing backend endpoints for prototyping and adding a small README in `frontend/` describing start commands.
-
----
-
-## License
-
-Add your preferred license here (e.g. MIT). Example:
-
-```
-MIT License
-Copyright (c) 2025 Priyansh Singh
-```
-
----
-
-## Contact
-
-Priyansh Singh — link your email or GitHub profile here.
-
----
-
-*This README was generated/updated to reflect the current project state and to clearly state that the frontend is pending.*
+If you find this project useful, consider giving it a ⭐ on GitHub to show your support.
