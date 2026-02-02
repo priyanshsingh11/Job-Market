@@ -1,156 +1,70 @@
-# 📊 Job-Market: End-to-End Job Market Intelligence Platform
+# Job Market Intelligence
 
-Job-Market is a complete end-to-end **data science and machine learning powered job market intelligence platform**.  
-The project covers the full lifecycle — from **web scraping and data analysis** to **machine learning, backend APIs, and a modern frontend dashboard**.
+An end-to-end platform for job market data collection, analysis, and salary prediction using machine learning.
 
-It is designed to help students, job seekers, analysts, and recruiters understand **hiring trends, in-demand skills, and salary patterns** through data-driven insights.
+## Project Demo
 
----
-
-## 🚀 Project Motivation
-
-The job market is highly dynamic and fragmented across multiple platforms. Job postings are often unstructured, inconsistent, and difficult to analyze at scale.
-
-This project solves that problem by:
-- Automatically collecting real job data
-- Structuring and cleaning noisy information
-- Extracting meaningful insights using ML
-- Serving predictions via APIs
-- Visualizing results through an interactive frontend
+<video src="./Recording%202025-12-14%20180127.mp4" controls width="100%"></video>
 
 ---
 
-## 🧠 Key Features
+## System Architecture
 
-- Automated job data scraping from online job platforms  
-- Robust data cleaning and preprocessing pipeline  
-- Exploratory Data Analysis (EDA) for market insights  
-- Feature engineering for skills, salary, experience, and roles  
-- Machine learning models for job market prediction  
-- FastAPI backend for real-time inference  
-- React-based frontend dashboard for user interaction  
-- Scalable and production-ready architecture  
+The system consists of a React frontend, a FastAPI backend, and a CatBoost-based ML pipeline.
 
----
-
-## 🏗️ System Architecture
-
-                             ┌──────────────────┐
-                             │   Data Sources    │
-                             │ (Web Job Boards)  │
-                             └─────────┬─────────┘
-                                       │
-                                       ▼
-                            ┌─────────────────────┐
-                            │     Scraper Layer    │
-                            │ (Web Scraping)       │
-                            └─────────┬───────────┘
-                                       │ Raw Job Listings
-                                       ▼
-                         ┌──────────────────────────┐
-                         │    Data Storage (CSV)     │
-                         └─────────┬────────────────┘
-                                       │
-                    ┌──────────────────┴──────────────────┐
-                    │                                     │
-                    ▼                                     ▼
-          ┌──────────────────┐               ┌────────────────────────┐
-          │ Data Cleaning &  │               │   Feature Engineering  │
-          │   Preprocessing   │               │ (Skills, Salary, Exp) │
-          └─────────┬────────┘                └─────────┬──────────────┘
-                    │                                   │
-                    ▼                                   ▼
-             ┌───────────────────────────────┐  ┌────────────────────────┐
-             │   Machine Learning Models      │  │   Exploratory Analysis │
-             │ (Salary & Market Insights)    │  │   & Visualization      │
-             └────────────┬──────────────────┘  └────────────────────────┘
-                          │
-                          ▼
-               ┌─────────────────────────────┐
-               │      FastAPI Backend         │
-               │  Model Inference & APIs      │
-               └────────────┬────────────────┘
-                            │
-                            ▼
-               ┌─────────────────────────────┐
-               │      React Frontend          │
-               │  Interactive Dashboard       │
-               └─────────────────────────────┘
-
----
-
-## 📂 Project Structure
-
-```text
-Job-Market/
-│
-├── backend/               # FastAPI backend & ML inference APIs
-├── frontend/              # React frontend dashboard
-├── data/                  # Raw and cleaned job datasets
-├── scraping/              # Job scraping scripts
-├── notebooks/             # EDA and experimentation notebooks
-├── models/                # Trained ML models
-├── analysis/              # Feature engineering and insights
-├── outputs/               # Processed datasets and results
-├── README.md              # Project documentation
-└── requirements.txt       # Backend dependencies
+```mermaid
+graph TD
+    User([User]) <--> Frontend[React Frontend]
+    Frontend <--> Backend[FastAPI Backend]
+    Backend <--> ML[CatBoost Model]
+    ML <--> Data[(Processed Data)]
+    Scraper[Scraper/Cleaning] --> Data
 ```
-## 🔧 Tech Stack
 
-Programming & Tools
-Python, Git, GitHub, Jupyter Notebook, VS Code
+- **Frontend**: Built with React and Vite for real-time predictions and data visualization.
+- **Backend**: FastAPI serves model inferences and handles data routing.
+- **ML Pipeline**: CatBoost Regressor predicts salaries based on role, location, and seniority.
+- **Data Layer**: Processes raw job listings into normalized features for training and analysis.
 
-Backend
-FastAPI, Pydantic, REST APIs
+---
 
-Frontend
-React, JavaScript, Modern UI Components
+## Technical Stack
 
-Data Analytics
-Pandas, NumPy, Matplotlib, Seaborn
+- **Languages**: Python, JavaScript
+- **ML**: CatBoost, Scikit-Learn, Pandas, NumPy
+- **Backend**: FastAPI, Uvicorn
+- **Frontend**: React, Vite
+- **Analysis**: Jupyter Notebooks
 
-Machine Learning
-Scikit-learn
+---
 
-Visualization & Reporting
-Dashboard-based visual insights (Frontend)
+## Setup Instructions
 
-## 📊 Machine Learning Workflow
+### Environment
+1. Clone the repository: `git clone https://github.com/priyanshsingh11/Job-Market.git`
+2. Initialize virtual environment:
+   - Windows: `python -m venv .venv; .\.venv\Scripts\Activate.ps1`
+   - Unix: `python3 -m venv .venv; source .venv/bin/activate`
+3. Install dependencies: `pip install -r requirements.txt`
 
-Job data collection via automated web scraping
+### Execution
+- **Backend**: `uvicorn backend.main:app --reload`
+- **Frontend**: `cd frontend; npm install; npm run dev`
+- **Analysis**: `jupyter lab` (Navigate to `notebook/`)
 
-Data cleaning, normalization, and validation
+---
 
-Feature engineering for skills, salary, experience, and role
+## Repository Structure
 
-Model training and evaluation using ML algorithms
+- `backend/`: FastAPI implementation and model serving.
+- `frontend/`: React application.
+- `model/`: Trained models and serialization.
+- `notebook/`: Exploratory Data Analysis and training experiments.
+- `src/`: Core logic and data utilities.
+- `data/`: Datasets (Raw and Processed).
 
-Model deployment via FastAPI endpoints
+---
 
-Real-time predictions consumed by the React frontend
-
-## 📈 Use Cases
-
-Students exploring career paths and required skills
-
-Job seekers analyzing salary trends and market demand
-
-Analysts studying hiring patterns across roles and locations
-
-Recruiters gaining insights into competitive job markets
-
-## ✅ Project Status
-
-✔ Data scraping implemented
-✔ Data cleaning and EDA completed
-✔ Machine learning models trained and evaluated
-✔ FastAPI backend implemented
-✔ React frontend dashboard implemented
-✔ End-to-end system completed
-
-## 🧑‍💻 Author
-
-Priyansh Singh
-Machine Learning & Data Science Engineer
-
-GitHub: https://github.com/priyanshsingh11
+## License
+MIT License
+Copyright (c) 2025 Priyansh Singh
