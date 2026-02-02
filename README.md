@@ -4,7 +4,13 @@ An end-to-end platform for job market data collection, analysis, and salary pred
 
 ## Project Demo
 
-<video src="./Recording%202025-12-14%20180127.mp4" controls width="100%"></video>
+<p align="center">
+  <img src="./Screenshot%202026-02-02%20205450.png" alt="Project Demo Screenshot 1" width="100%" />
+</p>
+
+<p align="center">
+  <img src="./Screenshot%202026-02-02%20205457.png" alt="Project Demo Screenshot 2" width="100%" />
+</p>
 
 ---
 
