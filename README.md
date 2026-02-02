@@ -2,10 +2,6 @@
 
 An end-to-end platform for job market data collection, analysis, and salary prediction using machine learning.
 
-## Project Demo
-
-<video src="./Recording%202025-12-14%20180127.mp4" controls width="100%"></video>
-
 ---
 
 ## System Architecture
@@ -33,6 +29,7 @@ graph TD
 - **Languages**: Python, JavaScript
 - **ML**: CatBoost, Scikit-Learn, Pandas, NumPy
 - **Backend**: FastAPI, Uvicorn
+- **Scrapping**: RapidSearch API
 - **Frontend**: React, Vite
 - **Analysis**: Jupyter Notebooks
 
