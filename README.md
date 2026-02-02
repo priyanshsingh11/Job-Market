@@ -2,25 +2,45 @@
 
 An end-to-end platform for job market data collection, analysis, and salary prediction using machine learning.
 
+## Project Demo
+
+<video src="./Recording%202025-12-14%20180127.mp4" controls width="100%"></video>
+
 ---
 
 ## System Architecture
 
-The system consists of a React frontend, a FastAPI backend, and a CatBoost-based ML pipeline.
+The platform follows a modular architecture designed for scalable data ingestion, automated feature engineering, and high-performance model serving.
 
 ```mermaid
-graph TD
-    User([User]) <--> Frontend[React Frontend]
-    Frontend <--> Backend[FastAPI Backend]
-    Backend <--> ML[CatBoost Model]
-    ML <--> Data[(Processed Data)]
-    Scraper[Scraper/Cleaning] --> Data
+graph TB
+    subgraph Data_Orchestration [Data Acquisition & Orchestration]
+        S[RapidSearch API / JSearch] --> R[(Raw Data Lake)]
+        R --> P[ETL / Cleaning Pipeline]
+        P --> F[(Feature Store)]
+    end
+
+    subgraph Service_Layer [Inference & Service Layer]
+        F --> B[FastAPI Engine]
+        B --> M[CatBoost Inference Engine]
+        B --> C[Career Guidance Logic]
+    end
+
+    subgraph Interface_Layer [Client Interface]
+        B <--> UI[React Modern UI]
+        UI --> D[Interactive Analytics]
+    end
+
+    subgraph Model_Lifecycle [Model Management]
+        F --> T[Model Training / Validation]
+        T --> M
+    end
 ```
 
-- **Frontend**: Built with React and Vite for real-time predictions and data visualization.
-- **Backend**: FastAPI serves model inferences and handles data routing.
-- **ML Pipeline**: CatBoost Regressor predicts salaries based on role, location, and seniority.
-- **Data Layer**: Processes raw job listings into normalized features for training and analysis.
+- **Data Acquisition**: Automated ingestion pipeline powered by **RapidSearch API** (JSearch), collecting thousands of job listings across multiple dimensions including role, seniority, and geography.
+- **Service Layer**: Asynchronous FastAPI implementation for low-latency model inference and complex business logic execution.
+- **ML Engine**: High-performance gradient boosting implementation (CatBoost) optimized for categorical feature handling and high precision salary estimation.
+- **Client Interface**: Highly responsive React architecture utilizing Vite for optimized delivery and real-time state management.
 
 ---
 
@@ -28,8 +48,7 @@ graph TD
 
 - **Languages**: Python, JavaScript
 - **ML**: CatBoost, Scikit-Learn, Pandas, NumPy
-- **Backend**: FastAPI, Uvicorn
-- **Scrapping**: RapidSearch API
+- **API/Data**: RapidSearch API (JSearch), FastAPI, Uvicorn
 - **Frontend**: React, Vite
 - **Analysis**: Jupyter Notebooks
 
